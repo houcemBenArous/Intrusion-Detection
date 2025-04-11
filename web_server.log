@@ -1,0 +1,5 @@
+192.168.1.25 - - [10/Apr/2025:08:12:43 +0100] "GET /index.html HTTP/1.1" 200 4523 "https://www.google.com" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+45.123.45.67 - - [10/Apr/2025:08:13:12 +0100] "GET /admin HTTP/1.1" 403 287 "-" "Mozilla/5.0 (Linux; Android 12)"
+45.123.45.67 - - [10/Apr/2025:08:13:18 +0100] "GET /admin/login.php HTTP/1.1" 404 293 "-" "Mozilla/5.0 (Linux; Android 12)"
+192.168.1.25 - - [10/Apr/2025:08:15:01 +0100] "GET /products HTTP/1.1" 200 12453 "https://www.mywebsite.com/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+45.123.45.67 - - [10/Apr/2025:08:16:23 +0100] "GET /wp-admin HTTP/1.1" 404 289 "-" "Mozilla/5.0 (Linux; Android 12)" 

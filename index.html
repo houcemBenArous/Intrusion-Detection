@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP 03: Analyse et Détection d'Intrusions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar-example">
+    <nav id="navbar-example" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="bi bi-shield-lock"></i> CyberSécurité TP03</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#partie1">Partie 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#partie2">Partie 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#partie3">Partie 3</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#partie4">Partie 4</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#partie5">Partie 5</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#partie6">Partie 6</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#bonus">Bonus</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4 mt-5">TP 03: Analyse et Détection d'Intrusions à partir des Logs</h1>
+            <p class="lead">Exploration des techniques d'analyse de logs pour la cybersécurité</p>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <!-- Partie 1 -->
+        <section id="partie1" class="mb-5 partie">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2>Partie 1 : Collecte et Lecture des Logs</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Qu'est-ce qu'un log ? Pourquoi est-il important en cybersécurité ?</h3>
+                    <div class="mb-4">
+                        <p>Un log est un enregistrement chronologique d'événements produits par un système informatique.</p>
+                        <p>En cybersécurité, les logs sont importants car ils permettent de :</p>
+                        <ul>
+                            <li>Détecter les comportements anormaux</li>
+                            <li>Reconstituer le déroulement d'incidents</li>
+                            <li>Servir de preuves lors d'investigations</li>
+                            <li>Assurer la conformité aux réglementations</li>
+                        </ul>
+
+                        <div class="alert alert-info">
+                            <h5>Exemples courants :</h5>
+                            <ul>
+                                <li>Logs système (/var/log/syslog)</li>
+                                <li>Logs d'authentification (/var/log/auth.log)</li>
+                                <li>Logs d'applications (Apache, MySQL)</li>
+                                <li>Logs réseau</li>
+                                <li>Logs de sécurité</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Génération d'un fichier de logs</h3>
+                    <div class="mb-4">
+                        <p>Voici 5 entrées de logs simulant des requêtes à un serveur web fictif :</p>
+                        <div class="code-block">
+                            <pre><code>192.168.1.25 - - [10/Apr/2025:08:12:43 +0100] "GET /index.html HTTP/1.1" 200 4523 "https://www.google.com" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+45.123.45.67 - - [10/Apr/2025:08:13:12 +0100] "GET /admin HTTP/1.1" 403 287 "-" "Mozilla/5.0 (Linux; Android 12)"
+45.123.45.67 - - [10/Apr/2025:08:13:18 +0100] "GET /admin/login.php HTTP/1.1" 404 293 "-" "Mozilla/5.0 (Linux; Android 12)"
+192.168.1.25 - - [10/Apr/2025:08:15:01 +0100] "GET /products HTTP/1.1" 200 12453 "https://www.mywebsite.com/index.html" "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+45.123.45.67 - - [10/Apr/2025:08:16:23 +0100] "GET /wp-admin HTTP/1.1" 404 289 "-" "Mozilla/5.0 (Linux; Android 12)"</code></pre>
+                        </div>
+                        
+                        <div class="cmd-example">
+                            <p><strong>Commande pour afficher le contenu :</strong></p>
+                            <div class="terminal">
+                                <code>cat web_server.log</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partie 2 -->
+        <section id="partie2" class="mb-5 partie">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h2>Partie 2 : Analyse des Logs avec Linux</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Identification des adresses IP suspectes</h3>
+                    <div class="mb-4">
+                        <p><strong>Commande pour extraire uniquement les adresses IP :</strong></p>
+                        <div class="terminal">
+                            <code>grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" web_server.log</code>
+                        </div>
+                        
+                        <p><strong>Commande pour compter et afficher les IPs les plus actives :</strong></p>
+                        <div class="terminal">
+                            <code>grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" web_server.log | sort | uniq -c | sort -nr</code>
+                        </div>
+                        
+                        <div class="alert alert-warning mt-3">
+                            <p>L'adresse IP avec le plus de requêtes est : <strong>45.123.45.67</strong> (3 requêtes)</p>
+                        </div>
+                    </div>
+
+                    <h3>Détection des tentatives d'accès à des pages sensibles</h3>
+                    <div class="mb-4">
+                        <p><strong>Commande pour rechercher les accès à une page admin :</strong></p>
+                        <div class="terminal">
+                            <code>grep "/admin" web_server.log</code>
+                        </div>
+                        
+                        <div class="alert alert-danger mt-3">
+                            <p><strong>Tentatives suspectes :</strong> Oui. L'IP 45.123.45.67 a tenté d'accéder à /admin (403), /admin/login.php (404) et /wp-admin (404), ce qui indique une recherche systématique de points d'accès administratifs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partie 3 -->
+        <section id="partie3" class="mb-5 partie">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h2>Partie 3 : Analyse des Logs avec Python</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Chargement et analyse des logs avec Pandas</h3>
+                    <div class="mb-4">
+                        <p><strong>Code pour charger le fichier dans un DataFrame :</strong></p>
+                        <div class="code-block python">
+                            <pre><code>import pandas as pd
+import re
+
+def parse_log_line(line):
+    pattern = r'(\d+\.\d+\.\d+\.\d+) - - \[(.*?)\] "(.*?)" (\d+) (\d+) "(.*?)" "(.*?)"'
+    match = re.match(pattern, line)
+    if match:
+        ip, timestamp, request, status, size, referer, user_agent = match.groups()
+        request_parts = request.split()
+        method = request_parts[0] if len(request_parts) > 0 else "-"
+        url = request_parts[1] if len(request_parts) > 1 else "-"
+        
+        return {
+            'ip': ip, 'timestamp': timestamp, 'method': method,
+            'url': url, 'status': int(status), 'size': int(size)
+        }
+    return None
+
+logs = []
+with open('web_server.log', 'r') as file:
+    for line in file:
+        parsed = parse_log_line(line.strip())
+        
+        if parsed:
+            logs.append(parsed)
+
+df = pd.DataFrame(logs)</code></pre>
+                        </div>
+                        
+                        <p><strong>Compter le nombre de requêtes par IP :</strong></p>
+                        <div class="code-block python">
+                            <pre><code>ip_counts = df['ip'].value_counts()
+print(ip_counts)</code></pre>
+                        </div>
+                        
+                        <div class="alert alert-info mt-3">
+                            <p><strong>Les IPs les plus actives :</strong></p>
+                            <pre>45.123.45.67    3
+192.168.1.25    2</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partie 4 -->
+        <section id="partie4" class="mb-5 partie">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h2>Partie 4 : Visualisation des Logs</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Création d'un graphique pour visualiser les IPs suspectes</h3>
+                    <div class="mb-4">
+                        <p><strong>Type de graphique recommandé :</strong> Un graphique à barres horizontales est idéal pour visualiser les IPs les plus actives.</p>
+                        
+                        <p><strong>Code Matplotlib :</strong></p>
+                        <div class="code-block python">
+                            <pre><code>import matplotlib.pyplot as plt
+
+ip_counts = df['ip'].value_counts()
+plt.figure(figsize=(10, 6))
+ip_counts.plot(kind='barh', color='skyblue')
+plt.xlabel('Nombre de requêtes')
+plt.ylabel('Adresse IP')
+plt.title('Nombre de requêtes par adresse IP')
+plt.grid(axis='x', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()</code></pre>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="ipChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partie 5 -->
+        <section id="partie5" class="mb-5 partie">
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white">
+                    <h2>Partie 5 : Détection d'Intrusions avec Machine Learning</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Classification des IPs normales et suspectes</h3>
+                    <div class="mb-4">
+                        <p><strong>Définition d'un seuil pour classifier une IP comme suspecte :</strong></p>
+                        <div class="alert alert-info">
+                            <p>Une IP est considérée suspecte si elle a tenté d'accéder à des ressources administratives (/admin, /wp-admin, etc.).</p>
+                        </div>
+                        
+                        <p><strong>Code pour créer une colonne Suspect :</strong></p>
+                        <div class="code-block python">
+                            <pre><code>def is_sensitive_url(url):
+    sensitive_patterns = ['/admin', '/login', '/wp-admin', '/config']
+    return any(pattern in url for pattern in sensitive_patterns)
+
+df['Suspect'] = df['url'].apply(is_sensitive_url)</code></pre>
+                        </div>
+                        
+                        <div class="alert alert-warning mt-3">
+                            <p><strong>IPs suspectes identifiées :</strong> 45.123.45.67</p>
+                        </div>
+                    </div>
+
+                    <h3>Entraînement d'un modèle de Machine Learning</h3>
+                    <div class="mb-4">
+                        <p><strong>Modèle recommandé :</strong> RandomForest est approprié pour ce type de classification binaire.</p>
+                        
+                        <p><strong>Code pour l'entraînement :</strong></p>
+                        <div class="code-block python">
+                            <pre><code>from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+
+# Créer des caractéristiques
+df['url_length'] = df['url'].apply(len)
+df['is_admin_url'] = df['url'].apply(lambda x: 1 if '/admin' in x else 0)
+df['is_error'] = df['status'].apply(lambda x: 1 if x >= 400 else 0)
+
+features = df[['url_length', 'is_admin_url', 'is_error', 'status']]
+target = df['Suspect']
+
+# Division des données (dans un cas réel)
+X_train, X_test, y_train, y_test = train_test_split(
+    features, target, test_size=0.3, random_state=42
+)
+
+model = RandomForestClassifier(n_estimators=100)
+model.fit(features, target)</code></pre>
+                        </div>
+                        
+                        <div class="alert alert-success mt-3">
+                            <p><strong>Taux de précision approximatif :</strong> ~100% sur ce petit échantillon, mais dans un scénario réel, on peut s'attendre à 85-95%.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partie 6 -->
+        <section id="partie6" class="mb-5 partie">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h2>Partie 6 : Surveillance en Temps Réel des Logs</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Création d'un système d'alerte en temps réel</h3>
+                    <div class="mb-4">
+                        <p><strong>Lecture d'un fichier en continu avec Python :</strong></p>
+                        <div class="code-block python">
+                            <pre><code>def follow(file_path):
+    with open(file_path, 'r') as file:
+        file.seek(0, os.SEEK_END)
+        while True:
+            line = file.readline()
+            
+            if not line:
+                time.sleep(0.1)
+                continue
+            yield line</code></pre>
+                        </div>
+                        
+                        <p><strong>Script qui surveille et alerte pour /admin :</strong></p>
+                        <div class="code-block python">
+                            <pre><code>import time, re, os
+from datetime import datetime
+
+def monitor_logs(log_path):
+    print(f"[+] Surveillance en temps réel: {log_path}")
+    for line in follow(log_path):
+        if '/admin' in line:
+            
+            ip_match = re.search(r'(\d+\.\d+\.\d+\.\d+)', line)
+            ip = ip_match.group(1) if ip_match else "inconnu"
+            
+            print(f"\n[ALERTE] {datetime.now()} - Accès admin détecté!")
+            print(f"IP: {ip} | Log: {line}\n")
+
+if __name__ == "__main__":
+    monitor_logs('web_server.log')</code></pre>
+                        </div>
+                        
+                        <div class="demo-container">
+                            <div class="demo-header">
+                                <span>Simulation de surveillance en temps réel</span>
+                            </div>
+                            <div class="terminal-output" id="terminalOutput">
+                                [+] Surveillance en temps réel: web_server.log
+                            </div>
+                            <div class="demo-controls">
+                                <button id="simulateAlert" class="btn btn-danger">Simuler une alerte</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bonus -->
+        <section id="bonus" class="mb-5 partie">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h2>BONUS : Amélioration du TP</h2>
+                </div>
+                <div class="card-body">
+                    <h3>Quelles améliorations pourraient être apportées ?</h3>
+                    <div class="mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header bg-dark text-white">
+                                        <h4>Blocage automatique des IPs suspectes sous Linux</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Utiliser fail2ban pour surveiller les logs et bloquer automatiquement les IPs suspectes</p>
+                                        <p>Configuration simple:</p>
+                                        <div class="terminal">
+                                            <code>sudo apt-get install fail2ban
+sudo nano /etc/fail2ban/jail.local
+# Ajouter configuration pour /admin</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-header bg-dark text-white">
+                                        <h4>Stockage dans une base de données</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Utiliser SQLite pour une solution légère:</p>
+                                        <div class="code-block python small">
+                                            <pre><code>import sqlite3
+
+conn = sqlite3.connect('security_logs.db')
+cursor = conn.cursor()
+
+# Créer tables pour logs et IPs bloquées
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS logs (
+    id INTEGER PRIMARY KEY,
+    timestamp TEXT,
+    ip TEXT,
+    url TEXT,
+    status INTEGER,
+    is_suspicious BOOLEAN
+)
+''')
+
+# Fonction d'insertion
+def store_log(entry, is_suspicious):
+    cursor.execute('''
+    INSERT INTO logs VALUES (NULL, ?, ?, ?, ?, ?)
+    ''', (entry['timestamp'], entry['ip'], entry['url'], entry['status'], is_suspicious
+    conn.commit()</code></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>TP 03: Analyse et Détection d'Intrusions à partir des Logs</p>
+            <p class="mb-0">Sécurité des Systèmes d'Information &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

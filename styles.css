@@ -1,0 +1,189 @@
+/* Styles généraux */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --warning-color: #f39c12;
+    --info-color: #3498db;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 56px;
+    background-color: #f5f5f5;
+    position: relative;
+}
+
+/* Header et Navigation */
+header {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    padding: 80px 0;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    padding: 12px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand i {
+    margin-right: 8px;
+}
+
+/* Sections et cartes */
+.partie {
+    scroll-margin-top: 70px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    font-weight: 600;
+    padding: 15px 20px;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+/* Blocs de code et terminal */
+.code-block, .terminal {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin-bottom: 0;
+    white-space: pre-wrap;
+}
+
+.terminal {
+    background-color: #000;
+    color: #3cff00;
+    font-weight: 500;
+}
+
+.terminal code {
+    display: block;
+}
+
+/* Mise en évidence des blocs Python */
+.code-block.python {
+    background-color: #272822;
+    border-left: 4px solid #3498db;
+}
+
+.code-block.small {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Commandes et exemples */
+.cmd-example {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 4px solid var(--info-color);
+}
+
+/* Graphiques */
+.chart-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    height: 300px;
+}
+
+/* Démo interactive */
+.demo-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+    margin: 20px 0;
+}
+
+.demo-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px 15px;
+    font-weight: 600;
+}
+
+.terminal-output {
+    background-color: #000;
+    color: #3cff00;
+    padding: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    min-height: 120px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.demo-controls {
+    padding: 15px;
+    background-color: #e9ecef;
+    text-align: right;
+}
+
+/* Animation pour les alertes */
+@keyframes blink {
+    0% { background-color: #000; }
+    50% { background-color: #300; }
+    100% { background-color: #000; }
+}
+
+.alert-animation {
+    animation: blink 0.5s ease-in-out infinite;
+}
+
+/* Alertes et notifications */
+.alert {
+    border-radius: 6px;
+    padding: 15px 20px;
+    margin: 15px 0;
+}
+
+/* Adaptatif */
+@media (max-width: 768px) {
+    .chart-container {
+        height: 250px;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    .code-block, .terminal {
+        font-size: 12px;
+        padding: 10px;
+    }
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+} 
