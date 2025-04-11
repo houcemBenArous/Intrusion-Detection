@@ -38,12 +38,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#bonus">Bonus</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Équipe</a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header class="text-white text-center py-5">
+    <header class="text-white text-center py-5" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;">
         <div class="container">
             <h1 class="display-4 mt-5">TP 03: Analyse et Détection d'Intrusions à partir des Logs</h1>
             <p class="lead">Exploration des techniques d'analyse de logs pour la cybersécurité</p>
@@ -54,30 +57,38 @@
         <!-- Partie 1 -->
         <section id="partie1" class="mb-5 partie">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h2>Partie 1 : Collecte et Lecture des Logs</h2>
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6195/6195678.png" alt="Icône logs" class="me-3" style="width: 40px; height: 40px;">
+                    <h2 class="mb-0">Partie 1 : Collecte et Lecture des Logs</h2>
                 </div>
                 <div class="card-body">
-                    <h3>Qu'est-ce qu'un log ? Pourquoi est-il important en cybersécurité ?</h3>
-                    <div class="mb-4">
-                        <p>Un log est un enregistrement chronologique d'événements produits par un système informatique.</p>
-                        <p>En cybersécurité, les logs sont importants car ils permettent de :</p>
-                        <ul>
-                            <li>Détecter les comportements anormaux</li>
-                            <li>Reconstituer le déroulement d'incidents</li>
-                            <li>Servir de preuves lors d'investigations</li>
-                            <li>Assurer la conformité aux réglementations</li>
-                        </ul>
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2059/2059310.png" alt="Logs de sécurité" class="img-fluid rounded mb-3" style="max-width: 150px;">
+                        </div>
+                        <div class="col-md-9">
+                            <h3>Qu'est-ce qu'un log ? Pourquoi est-il important en cybersécurité ?</h3>
+                            <div class="mb-4">
+                                <p>Un log est un enregistrement chronologique d'événements produits par un système informatique.</p>
+                                <p>En cybersécurité, les logs sont importants car ils permettent de :</p>
+                                <ul>
+                                    <li>Détecter les comportements anormaux</li>
+                                    <li>Reconstituer le déroulement d'incidents</li>
+                                    <li>Servir de preuves lors d'investigations</li>
+                                    <li>Assurer la conformité aux réglementations</li>
+                                </ul>
 
-                        <div class="alert alert-info">
-                            <h5>Exemples courants :</h5>
-                            <ul>
-                                <li>Logs système (/var/log/syslog)</li>
-                                <li>Logs d'authentification (/var/log/auth.log)</li>
-                                <li>Logs d'applications (Apache, MySQL)</li>
-                                <li>Logs réseau</li>
-                                <li>Logs de sécurité</li>
-                            </ul>
+                                <div class="alert alert-info">
+                                    <h5>Exemples courants :</h5>
+                                    <ul>
+                                        <li>Logs système (/var/log/syslog)</li>
+                                        <li>Logs d'authentification (/var/log/auth.log)</li>
+                                        <li>Logs d'applications (Apache, MySQL)</li>
+                                        <li>Logs réseau</li>
+                                        <li>Logs de sécurité</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -106,24 +117,32 @@
         <!-- Partie 2 -->
         <section id="partie2" class="mb-5 partie">
             <div class="card shadow">
-                <div class="card-header bg-success text-white">
-                    <h2>Partie 2 : Analyse des Logs avec Linux</h2>
+                <div class="card-header bg-success text-white d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6688/6688721.png" alt="Linux" class="me-3" style="width: 40px; height: 40px;">
+                    <h2 class="mb-0">Partie 2 : Analyse des Logs avec Linux</h2>
                 </div>
                 <div class="card-body">
-                    <h3>Identification des adresses IP suspectes</h3>
-                    <div class="mb-4">
-                        <p><strong>Commande pour extraire uniquement les adresses IP :</strong></p>
-                        <div class="terminal">
-                            <code>grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" web_server.log</code>
+                    <div class="row mb-4">
+                        <div class="col-md-9">
+                            <h3>Identification des adresses IP suspectes</h3>
+                            <div class="mb-4">
+                                <p><strong>Commande pour extraire uniquement les adresses IP :</strong></p>
+                                <div class="terminal">
+                                    <code>grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" web_server.log</code>
+                                </div>
+                                
+                                <p><strong>Commande pour compter et afficher les IPs les plus actives :</strong></p>
+                                <div class="terminal">
+                                    <code>grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" web_server.log | sort | uniq -c | sort -nr</code>
+                                </div>
+                                
+                                <div class="alert alert-warning mt-3">
+                                    <p>L'adresse IP avec le plus de requêtes est : <strong>45.123.45.67</strong> (3 requêtes)</p>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <p><strong>Commande pour compter et afficher les IPs les plus actives :</strong></p>
-                        <div class="terminal">
-                            <code>grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" web_server.log | sort | uniq -c | sort -nr</code>
-                        </div>
-                        
-                        <div class="alert alert-warning mt-3">
-                            <p>L'adresse IP avec le plus de requêtes est : <strong>45.123.45.67</strong> (3 requêtes)</p>
+                        <div class="col-md-3 text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2172/2172894.png" alt="Détection IP" class="img-fluid rounded mb-3" style="max-width: 150px;">
                         </div>
                     </div>
 
@@ -145,15 +164,21 @@
         <!-- Partie 3 -->
         <section id="partie3" class="mb-5 partie">
             <div class="card shadow">
-                <div class="card-header bg-info text-white">
-                    <h2>Partie 3 : Analyse des Logs avec Python</h2>
+                <div class="card-header bg-info text-white d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Python" class="me-3" style="width: 40px; height: 40px;">
+                    <h2 class="mb-0">Partie 3 : Analyse des Logs avec Python</h2>
                 </div>
                 <div class="card-body">
-                    <h3>Chargement et analyse des logs avec Pandas</h3>
-                    <div class="mb-4">
-                        <p><strong>Code pour charger le fichier dans un DataFrame :</strong></p>
-                        <div class="code-block python">
-                            <pre><code>import pandas as pd
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2721/2721620.png" alt="Analyse de données" class="img-fluid rounded mb-3" style="max-width: 150px;">
+                        </div>
+                        <div class="col-md-9">
+                            <h3>Chargement et analyse des logs avec Pandas</h3>
+                            <div class="mb-4">
+                                <p><strong>Code pour charger le fichier dans un DataFrame :</strong></p>
+                                <div class="code-block python">
+                                    <pre><code>import pandas as pd
 import re
 
 def parse_log_line(line):
@@ -180,18 +205,20 @@ with open('web_server.log', 'r') as file:
             logs.append(parsed)
 
 df = pd.DataFrame(logs)</code></pre>
-                        </div>
-                        
-                        <p><strong>Compter le nombre de requêtes par IP :</strong></p>
-                        <div class="code-block python">
-                            <pre><code>ip_counts = df['ip'].value_counts()
+                                </div>
+                                
+                                <p><strong>Compter le nombre de requêtes par IP :</strong></p>
+                                <div class="code-block python">
+                                    <pre><code>ip_counts = df['ip'].value_counts()
 print(ip_counts)</code></pre>
-                        </div>
-                        
-                        <div class="alert alert-info mt-3">
-                            <p><strong>Les IPs les plus actives :</strong></p>
-                            <pre>45.123.45.67    3
+                                </div>
+                                
+                                <div class="alert alert-info mt-3">
+                                    <p><strong>Les IPs les plus actives :</strong></p>
+                                    <pre>45.123.45.67    3
 192.168.1.25    2</pre>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -201,17 +228,20 @@ print(ip_counts)</code></pre>
         <!-- Partie 4 -->
         <section id="partie4" class="mb-5 partie">
             <div class="card shadow">
-                <div class="card-header bg-warning text-dark">
-                    <h2>Partie 4 : Visualisation des Logs</h2>
+                <div class="card-header bg-warning text-dark d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1006/1006555.png" alt="Visualisation" class="me-3" style="width: 40px; height: 40px;">
+                    <h2 class="mb-0">Partie 4 : Visualisation des Logs</h2>
                 </div>
                 <div class="card-body">
-                    <h3>Création d'un graphique pour visualiser les IPs suspectes</h3>
-                    <div class="mb-4">
-                        <p><strong>Type de graphique recommandé :</strong> Un graphique à barres horizontales est idéal pour visualiser les IPs les plus actives.</p>
-                        
-                        <p><strong>Code Matplotlib :</strong></p>
-                        <div class="code-block python">
-                            <pre><code>import matplotlib.pyplot as plt
+                    <div class="row mb-4">
+                        <div class="col-md-8">
+                            <h3>Création d'un graphique pour visualiser les IPs suspectes</h3>
+                            <div class="mb-4">
+                                <p><strong>Type de graphique recommandé :</strong> Un graphique à barres horizontales est idéal pour visualiser les IPs les plus actives.</p>
+                                
+                                <p><strong>Code Matplotlib :</strong></p>
+                                <div class="code-block python">
+                                    <pre><code>import matplotlib.pyplot as plt
 
 ip_counts = df['ip'].value_counts()
 plt.figure(figsize=(10, 6))
@@ -222,11 +252,16 @@ plt.title('Nombre de requêtes par adresse IP')
 plt.grid(axis='x', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.show()</code></pre>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="chart-container">
-                            <canvas id="ipChart"></canvas>
+                        <div class="col-md-4 text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/6747/6747196.png" alt="Data Visualization" class="img-fluid rounded mb-3" style="max-width: 150px;">
                         </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="ipChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -235,28 +270,36 @@ plt.show()</code></pre>
         <!-- Partie 5 -->
         <section id="partie5" class="mb-5 partie">
             <div class="card shadow">
-                <div class="card-header bg-danger text-white">
-                    <h2>Partie 5 : Détection d'Intrusions avec Machine Learning</h2>
+                <div class="card-header bg-danger text-white d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" alt="Machine Learning" class="me-3" style="width: 40px; height: 40px;">
+                    <h2 class="mb-0">Partie 5 : Détection d'Intrusions avec Machine Learning</h2>
                 </div>
                 <div class="card-body">
-                    <h3>Classification des IPs normales et suspectes</h3>
-                    <div class="mb-4">
-                        <p><strong>Définition d'un seuil pour classifier une IP comme suspecte :</strong></p>
-                        <div class="alert alert-info">
-                            <p>Une IP est considérée suspecte si elle a tenté d'accéder à des ressources administratives (/admin, /wp-admin, etc.).</p>
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5738/5738077.png" alt="AI Security" class="img-fluid rounded mb-3" style="max-width: 200px;">
                         </div>
-                        
-                        <p><strong>Code pour créer une colonne Suspect :</strong></p>
-                        <div class="code-block python">
-                            <pre><code>def is_sensitive_url(url):
+                        <div class="col-md-8">
+                            <h3>Classification des IPs normales et suspectes</h3>
+                            <div class="mb-4">
+                                <p><strong>Définition d'un seuil pour classifier une IP comme suspecte :</strong></p>
+                                <div class="alert alert-info">
+                                    <p>Une IP est considérée suspecte si elle a tenté d'accéder à des ressources administratives (/admin, /wp-admin, etc.).</p>
+                                </div>
+                                
+                                <p><strong>Code pour créer une colonne Suspect :</strong></p>
+                                <div class="code-block python">
+                                    <pre><code>def is_sensitive_url(url):
     sensitive_patterns = ['/admin', '/login', '/wp-admin', '/config']
     return any(pattern in url for pattern in sensitive_patterns)
 
 df['Suspect'] = df['url'].apply(is_sensitive_url)</code></pre>
-                        </div>
-                        
-                        <div class="alert alert-warning mt-3">
-                            <p><strong>IPs suspectes identifiées :</strong> 45.123.45.67</p>
+                                </div>
+                                
+                                <div class="alert alert-warning mt-3">
+                                    <p><strong>IPs suspectes identifiées :</strong> 45.123.45.67</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -297,15 +340,18 @@ model.fit(features, target)</code></pre>
         <!-- Partie 6 -->
         <section id="partie6" class="mb-5 partie">
             <div class="card shadow">
-                <div class="card-header bg-dark text-white">
-                    <h2>Partie 6 : Surveillance en Temps Réel des Logs</h2>
+                <div class="card-header bg-dark text-white d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1651/1651806.png" alt="Monitoring" class="me-3" style="width: 40px; height: 40px;">
+                    <h2 class="mb-0">Partie 6 : Surveillance en Temps Réel des Logs</h2>
                 </div>
                 <div class="card-body">
-                    <h3>Création d'un système d'alerte en temps réel</h3>
-                    <div class="mb-4">
-                        <p><strong>Lecture d'un fichier en continu avec Python :</strong></p>
-                        <div class="code-block python">
-                            <pre><code>def follow(file_path):
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3>Création d'un système d'alerte en temps réel</h3>
+                            <div class="mb-4">
+                                <p><strong>Lecture d'un fichier en continu avec Python :</strong></p>
+                                <div class="code-block python">
+                                    <pre><code>def follow(file_path):
     with open(file_path, 'r') as file:
         file.seek(0, os.SEEK_END)
         while True:
@@ -315,11 +361,11 @@ model.fit(features, target)</code></pre>
                 time.sleep(0.1)
                 continue
             yield line</code></pre>
-                        </div>
-                        
-                        <p><strong>Script qui surveille et alerte pour /admin :</strong></p>
-                        <div class="code-block python">
-                            <pre><code>import time, re, os
+                                </div>
+                                
+                                <p><strong>Script qui surveille et alerte pour /admin :</strong></p>
+                                <div class="code-block python">
+                                    <pre><code>import time, re, os
 from datetime import datetime
 
 def monitor_logs(log_path):
@@ -335,18 +381,23 @@ def monitor_logs(log_path):
 
 if __name__ == "__main__":
     monitor_logs('web_server.log')</code></pre>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="demo-container">
-                            <div class="demo-header">
-                                <span>Simulation de surveillance en temps réel</span>
-                            </div>
-                            <div class="terminal-output" id="terminalOutput">
-                                [+] Surveillance en temps réel: web_server.log
-                            </div>
-                            <div class="demo-controls">
-                                <button id="simulateAlert" class="btn btn-danger">Simuler une alerte</button>
-                            </div>
+                        <div class="col-md-4 text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/2092/2092751.png" alt="Alert System" class="img-fluid rounded mb-3" style="max-width: 200px;">
+                        </div>
+                    </div>
+                    
+                    <div class="demo-container">
+                        <div class="demo-header">
+                            <span>Simulation de surveillance en temps réel</span>
+                        </div>
+                        <div class="terminal-output" id="terminalOutput">
+                            [+] Surveillance en temps réel: web_server.log
+                        </div>
+                        <div class="demo-controls">
+                            <button id="simulateAlert" class="btn btn-danger">Simuler une alerte</button>
                         </div>
                     </div>
                 </div>
@@ -356,8 +407,9 @@ if __name__ == "__main__":
         <!-- Bonus -->
         <section id="bonus" class="mb-5 partie">
             <div class="card shadow">
-                <div class="card-header bg-secondary text-white">
-                    <h2>BONUS : Amélioration du TP</h2>
+                <div class="card-header bg-secondary text-white d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991606.png" alt="Bonus" class="me-3" style="width: 40px; height: 40px;">
+                    <h2 class="mb-0">BONUS : Amélioration du TP</h2>
                 </div>
                 <div class="card-body">
                     <h3>Quelles améliorations pourraient être apportées ?</h3>
@@ -365,8 +417,9 @@ if __name__ == "__main__":
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card mb-3">
-                                    <div class="card-header bg-dark text-white">
-                                        <h4>Blocage automatique des IPs suspectes sous Linux</h4>
+                                    <div class="card-header bg-dark text-white d-flex align-items-center">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/2665/2665632.png" alt="Firewall" class="me-2" style="width: 30px; height: 30px;">
+                                        <h4 class="mb-0">Blocage automatique des IPs suspectes sous Linux</h4>
                                     </div>
                                     <div class="card-body">
                                         <p>Utiliser fail2ban pour surveiller les logs et bloquer automatiquement les IPs suspectes</p>
@@ -382,8 +435,9 @@ sudo nano /etc/fail2ban/jail.local
                             
                             <div class="col-md-6">
                                 <div class="card mb-3">
-                                    <div class="card-header bg-dark text-white">
-                                        <h4>Stockage dans une base de données</h4>
+                                    <div class="card-header bg-dark text-white d-flex align-items-center">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/2906/2906274.png" alt="Database" class="me-2" style="width: 30px; height: 30px;">
+                                        <h4 class="mb-0">Stockage dans une base de données</h4>
                                     </div>
                                     <div class="card-body">
                                         <p>Utiliser SQLite pour une solution légère:</p>
@@ -420,11 +474,47 @@ def store_log(entry, is_suspicious):
                 </div>
             </div>
         </section>
+
+        <!-- Section équipe -->
+        <section id="team" class="mb-5 partie">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/681/681494.png" alt="Team" class="me-3" style="width: 40px; height: 40px;">
+                    <h2 class="mb-0">Notre Équipe</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-4">
+                            <div class="team-member">
+                                <img src="https://cdn-icons-png.flaticon.com/512/4128/4128176.png" alt="Membre 1" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+                                <h4>Houssem Eddine Ben Arous</h4>
+                                <p class="text-muted">étudiant en informatique</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="team-member">
+                                <img src="https://cdn-icons-png.flaticon.com/512/4128/4128349.png" alt="Membre 2" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+                                <h4>Boussaid Mohamed Amine</h4>
+                                <p class="text-muted">étudiant en informatique</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="team-member">
+                                <img src="https://cdn-icons-png.flaticon.com/512/4128/4128244.png" alt="Membre 3" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px;">
+                                <h4>Jassem Boughatas</h4>
+                                <p class="text-muted">étudiant en informatique</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="bg-dark text-white py-4">
         <div class="container text-center">
             <p>TP 03: Analyse et Détection d'Intrusions à partir des Logs</p>
+            <p>Développé par <strong>Houssem Eddine Ben Arous</strong>, <strong>Boussaid Mohamed Amine</strong> et <strong>Jassem Boughatas</strong></p>
             <p class="mb-0">Sécurité des Systèmes d'Information &copy; 2025</p>
         </div>
     </footer>
